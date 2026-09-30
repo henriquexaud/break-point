@@ -1,87 +1,242 @@
 [
   {
     "img": "arm.svg",
-    "description": "Estique um de seus braços com a palma da mão virada para frente e puxe os dedos para cima por 10 segundos por mão.",
-    "xp": 80
+    "description": "Estique um braço à frente com a palma virada para fora e puxe os dedos para trás com a outra mão. Segure 15 segundos em cada braço.",
+    "xp": 60
   },
   {
     "img": "arm.svg",
-    "description": "Estique seu braço contra o peito e puxe-o utilizando o outro braço por 10 segundos por braço.",
+    "description": "Cruze um braço na frente do peito e puxe-o com o outro braço na altura do cotovelo. Segure 15 segundos em cada lado.",
     "xp": 60
   },
   {
-    "img": "neck.svg",
-    "description": "Puxe seu pescoço com a ajuda da mão para a direita e para a esquerda, permanecendo na posição por alguns segundos.",
+    "img": "arm.svg",
+    "description": "Leve uma mão às costas por cima do ombro e empurre o cotovelo para baixo com a outra mão. Segure 15 segundos em cada braço.",
+    "xp": 70
+  },
+  {
+    "img": "arm.svg",
+    "description": "Gire os ombros para trás em movimentos amplos 10 vezes, depois gire para frente mais 10 vezes.",
+    "xp": 50
+  },
+  {
+    "img": "arm.svg",
+    "description": "Entrelace os dedos, vire as palmas para cima e estique os braços acima da cabeça. Segure 20 segundos respirando fundo.",
+    "xp": 60
+  },
+  {
+    "img": "hand.svg",
+    "description": "Abra e feche as mãos com força 15 vezes, afastando bem os dedos ao abrir.",
+    "xp": 50
+  },
+  {
+    "img": "hand.svg",
+    "description": "Gire os punhos em círculos lentos, 10 vezes para cada lado.",
+    "xp": 50
+  },
+  {
+    "img": "hand.svg",
+    "description": "Junte as palmas na frente do peito e desça as mãos até sentir alongar os punhos. Segure 20 segundos.",
+    "xp": 60
+  },
+  {
+    "img": "hand.svg",
+    "description": "Com uma mão, puxe suavemente cada dedo da outra mão para trás por 5 segundos. Repita na outra mão.",
     "xp": 70
   },
   {
     "img": "neck.svg",
-    "description": "Com as duas mãos na parte de trás da cabeça, leve-a para baixo, alongando a parte de trás da região.",
+    "description": "Com a ajuda da mão, puxe a cabeça suavemente em direção ao ombro direito e segure 15 segundos. Repita para a esquerda.",
     "xp": 60
   },
   {
-    "img": "leg.svg",
-    "description": "Cruze as pernas e desça com as mãos esticadas em direção ao chão. Repita o movimento com a outra perna na frente.",
-    "xp": 100
+    "img": "neck.svg",
+    "description": "Com as duas mãos atrás da cabeça, leve o queixo em direção ao peito, alongando a nuca. Segure 20 segundos.",
+    "xp": 60
   },
   {
-    "img": "backs.svg",
-    "description": "Sentado, abra as pernas e tente encostar as palmas das mãos no chão, repita 3 vezes por 5 segundos.",
-    "xp": 80
+    "img": "neck.svg",
+    "description": "Gire a cabeça devagar em círculos completos, 5 vezes para cada lado.",
+    "xp": 50
   },
   {
-    "img": "leg.svg",
-    "description": "Puxe o joelho de encontro ao peito e segure, troque de perna após 10 segundos.",
+    "img": "neck.svg",
+    "description": "Sem mexer os ombros, leve o queixo para trás como se fizesse um queixo duplo. Repita 10 vezes.",
+    "xp": 50
+  },
+  {
+    "img": "neck.svg",
+    "description": "Olhe por cima do ombro direito o máximo que puder e segure 10 segundos. Repita para a esquerda.",
     "xp": 50
   },
   {
     "img": "backs.svg",
-    "description": "Sentado, cruze uma perna e incline seu tronco à frente, troque de perna após 10 segundos.",
+    "description": "Sentado, abra as pernas e tente encostar as palmas das mãos no chão. Repita 3 vezes, segurando 5 segundos.",
     "xp": 80
   },
   {
-    "img": "eye.svg",
-    "description": "Sentado, feche os olhos e cubra-os com as palmas da mão durante 2 minutos, depois abra normalmente.",
-    "xp": 90
+    "img": "backs.svg",
+    "description": "Sentado, cruze uma perna sobre a outra e incline o tronco à frente. Segure 15 segundos e troque de perna.",
+    "xp": 80
   },
   {
-    "img": "eye.svg",
-    "description": "Em algum ambiente aberto, olhe o mais longe que puder em quatro direções por 3s, mexa apenas os olhos. Repita 3 vezes.",
-    "xp": 140
-  },
-  {
-    "img": "eye.svg",
-    "description": "Usando os polegares, massage a área abaixo das sobrancelhas em movimentos circulares por 15 segundos.",
+    "img": "backs.svg",
+    "description": "Em pé, gire a cintura o máximo que puder para a esquerda e segure 5 segundos. Repita para a direita.",
     "xp": 60
   },
   {
     "img": "backs.svg",
-    "description": "Em pé, gire a cintura o máximo que puder para a esquerda, segure por cinco segundos. Repita para a direita.",
+    "description": "Deite de costas no chão com os braços abertos e respire devagar por 2 minutos.",
+    "xp": 100
+  },
+  {
+    "img": "backs.svg",
+    "description": "Em quatro apoios, alterne lentamente entre arredondar e arquear as costas. Repita 10 vezes.",
+    "xp": 90
+  },
+  {
+    "img": "backs.svg",
+    "description": "Sentado, segure o encosto da cadeira e gire o tronco para trás. Segure 15 segundos para cada lado.",
+    "xp": 60
+  },
+  {
+    "img": "backs.svg",
+    "description": "Em pé, apoie as mãos na lombar e incline o tronco levemente para trás. Segure 10 segundos e repita 3 vezes.",
+    "xp": 60
+  },
+  {
+    "img": "leg.svg",
+    "description": "Em pé, cruze as pernas e desça as mãos em direção ao chão. Segure 15 segundos e repita com a outra perna na frente.",
+    "xp": 90
+  },
+  {
+    "img": "leg.svg",
+    "description": "Puxe um joelho de encontro ao peito e segure 15 segundos. Troque de perna.",
+    "xp": 60
+  },
+  {
+    "img": "leg.svg",
+    "description": "Em pé, segure o pé atrás do corpo, puxando o calcanhar em direção ao glúteo. Segure 20 segundos em cada perna.",
     "xp": 70
   },
   {
-    "img": "book.svg",
-    "description": "Leia um capítulo do seu livro atual",
-    "xp": 150
+    "img": "leg.svg",
+    "description": "Apoie as mãos na parede e leve uma perna para trás com o calcanhar no chão. Segure 20 segundos e troque de perna.",
+    "xp": 70
+  },
+  {
+    "img": "leg.svg",
+    "description": "Faça 15 agachamentos lentos, mantendo as costas retas.",
+    "xp": 120
+  },
+  {
+    "img": "leg.svg",
+    "description": "Fique na ponta dos pés e desça devagar. Repita 20 vezes.",
+    "xp": 70
+  },
+  {
+    "img": "eye.svg",
+    "description": "Feche os olhos e cubra-os com as palmas das mãos por 2 minutos, respirando devagar.",
+    "xp": 90
+  },
+  {
+    "img": "eye.svg",
+    "description": "Em um ambiente aberto, olhe o mais longe que puder em quatro direções por 3 segundos, mexendo apenas os olhos. Repita 3 vezes.",
+    "xp": 100
+  },
+  {
+    "img": "eye.svg",
+    "description": "Com os polegares, massageie a área abaixo das sobrancelhas em movimentos circulares por 15 segundos.",
+    "xp": 50
+  },
+  {
+    "img": "eye.svg",
+    "description": "Olhe para algo a pelo menos 6 metros de distância por 20 segundos. Repita 3 vezes.",
+    "xp": 60
+  },
+  {
+    "img": "eye.svg",
+    "description": "Pisque rapidamente 20 vezes e depois feche os olhos por 20 segundos.",
+    "xp": 50
+  },
+  {
+    "img": "eye.svg",
+    "description": "Sem mexer a cabeça, desenhe um grande oito com os olhos, 5 vezes em cada sentido.",
+    "xp": 60
+  },
+  {
+    "img": "body.svg",
+    "description": "Levante-se e caminhe pelo ambiente durante 3 minutos.",
+    "xp": 100
+  },
+  {
+    "img": "body.svg",
+    "description": "Faça 20 polichinelos.",
+    "xp": 110
+  },
+  {
+    "img": "body.svg",
+    "description": "Estique os braços para cima e fique na ponta dos pés, alongando o corpo inteiro por 20 segundos.",
+    "xp": 60
+  },
+  {
+    "img": "body.svg",
+    "description": "Suba e desça um lance de escadas ou marche parado no lugar por 1 minuto.",
+    "xp": 100
+  },
+  {
+    "img": "body.svg",
+    "description": "Ajuste sua postura: pés apoiados no chão, costas encostadas na cadeira e tela na altura dos olhos.",
+    "xp": 50
+  },
+  {
+    "img": "brain.svg",
+    "description": "Inspire por 4 segundos, segure por 4 e solte o ar em 6 segundos. Repita 5 vezes.",
+    "xp": 80
+  },
+  {
+    "img": "brain.svg",
+    "description": "Feche os olhos e preste atenção apenas aos sons ao seu redor por 1 minuto.",
+    "xp": 70
+  },
+  {
+    "img": "brain.svg",
+    "description": "Anote em um papel três coisas que você concluiu hoje.",
+    "xp": 70
+  },
+  {
+    "img": "brain.svg",
+    "description": "Organize sua mesa: guarde o que não está usando e jogue fora o que não precisa.",
+    "xp": 90
   },
   {
     "img": "water.svg",
-    "description": "Beba um copo cheio de água",
-    "xp": 90
+    "description": "Beba um copo cheio de água.",
+    "xp": 60
   },
   {
-    "img": "backs.svg",
-    "description": "Deite com as costas no chão por 2 minutos",
-    "xp": 100
+    "img": "water.svg",
+    "description": "Encha sua garrafa de água e deixe-a ao alcance da mão.",
+    "xp": 50
+  },
+  {
+    "img": "water.svg",
+    "description": "Lave o rosto com água fria.",
+    "xp": 60
+  },
+  {
+    "img": "book.svg",
+    "description": "Leia 5 páginas do seu livro atual.",
+    "xp": 120
+  },
+  {
+    "img": "book.svg",
+    "description": "Leia um artigo curto sobre um assunto que você goste.",
+    "xp": 80
   },
   {
     "img": "netflix.svg",
-    "description": "Assista 20 minutos de um programa qualquer",
+    "description": "Assista a um vídeo curto de algo que você goste, de no máximo 5 minutos.",
     "xp": 100
-  },
-  {
-    "img": "neck.svg",
-    "description": "Alongue seu pescoço nas tres direções por 10 segundos",
-    "xp": 50
   }
 ]
