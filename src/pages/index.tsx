@@ -19,8 +19,6 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
-  console.log(props);
-
   return (
     <ChallengeProvider
       level={props.level}
@@ -29,7 +27,7 @@ export default function Home(props: HomeProps) {
     >
       <div className={styles.container}>
         <Head>
-          <title> BreakPoint </title>
+          <title>BreakPoint</title>
         </Head>
 
         <ExperienceBar />
@@ -55,9 +53,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      challengeCompleted: Number(challengeCompleted)
+      level: Number(level) || 1,
+      currentExperience: Number(currentExperience) || 0,
+      challengeCompleted: Number(challengeCompleted) || 0
     }
   }
 }

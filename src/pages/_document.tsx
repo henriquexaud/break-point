@@ -3,8 +3,12 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 export default class MyDocument extends Document {
     render() {
         return (
-            <Html>
+            <Html lang="pt-BR">
                 <Head>
+                    <meta
+                        name="description"
+                        content="Gamifique seus ciclos de foco com desafios de alongamento."
+                    />
                     <link
                         rel="preconnect"
                         href="https://fonts.gstatic.com"
@@ -14,7 +18,7 @@ export default class MyDocument extends Document {
                         rel="stylesheet"
                     />
                     <link rel="shortcut icon"
-                        href="icons/logo-bp.png"
+                        href="/icons/logo-bp.png"
                         type="image/png"
                     />
                 </Head>

@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     background: var(--black);
-    box-shadow: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
     padding: 1.5rem 2rem;
 }
@@ -76,11 +76,12 @@
     padding-top: 1rem;
 }
 
-.challengeActive footer {    
+.challengeActive footer {
     width: 15rem;
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .challengeActive footer button {
@@ -89,6 +90,7 @@
     border: 0px;
     border-radius: 5px;
     transition: background-color 0.2s;
+    flex: 1;
 }
 
 .challengeActive footer button:first-child {
@@ -97,7 +99,6 @@
 
 .challengeActive footer button:last-child {
     background-color: rgb(185, 6, 42);
-    width: 109px;
 }
 
 .challengeActive footer button:first-child:hover {
@@ -106,4 +107,11 @@
 
 .challengeActive footer button:last-child:hover {
     background-color: rgb(136, 1, 28);
+}
+
+@media (max-width: 720px) {
+    .challengeBoxContainer {
+        height: auto;
+        min-height: 25rem;
+    }
 }

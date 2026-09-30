@@ -2,7 +2,8 @@ import {
     createContext,
     useState,
     ReactNode,
-    useEffect
+    useEffect,
+    useRef
 } from "react";
 
 import challenges from "../../challenges.json"
@@ -46,17 +47,16 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
 
     const [activeChallenge, setActiveChallenge] = useState(null);
     const [isLevelUpModalOpen, setIsLevelUpModal] = useState(false);
+    const lastChallenge = useRef<Challenge>(null);
 
     const experienceToNextLevel = Math.pow((level + 1) * 5, 2)
 
     useEffect(() => {
-        Notification.requestPermission();
-    }, [])
+        const options = { expires: 365 };
 
-    useEffect(() => {
-        Cookies.set('level', String(level));
-        Cookies.set('currentExperience', String(currentExperience));
-        Cookies.set('challengeCompleted', String(challengeCompleted));
+        Cookies.set('level', String(level), options);
+        Cookies.set('currentExperience', String(currentExperience), options);
+        Cookies.set('challengeCompleted', String(challengeCompleted), options);
     }, [level, currentExperience, challengeCompleted])
 
     function levelUp() {
@@ -69,14 +69,19 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
     }
 
     function startNewChallenge() {
-        const randomChallengeIndex = Math.floor(Math.random() * challenges.length)
-        const challenge = challenges[randomChallengeIndex];
+        let challenge: Challenge;
+
+        do {
+            challenge = challenges[Math.floor(Math.random() * challenges.length)];
+        } while (challenge === lastChallenge.current);
+
+        lastChallenge.current = challenge;
 
         setActiveChallenge(challenge)
 
-        new Audio('/notification.mp3').play();
+        new Audio('/icons/notification.mp3').play().catch(() => {});
 
-        if (Notification.permission === 'granted') {
+        if ('Notification' in window && Notification.permission === 'granted') {
             new Notification('Novo desafio', {
                 body: `Valendo ${challenge.xp}xp!`
             })

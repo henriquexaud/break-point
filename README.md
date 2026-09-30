@@ -3,10 +3,14 @@ Aplicação web que gamifica o foco nos ciclos de estudo ou produção.
 
 Link para versão online: https://break-point-beryl.vercel.app/
 
-Versão de teste:
+## Rodando localmente
 
-    1 - Abra o projeto em sua IDE (recomendo VS Code)
+Requer **Node 16** (o Next.js 10 não funciona com Node 17+). A versão está fixada no `.nvmrc`.
 
-    2 - Digite no terminal: $ yarn dev
+```bash
+nvm install && nvm use
+yarn install
+yarn dev
+```
 
-    3 - Acesse no navegador: http://localhost:3000
+Acesse no navegador: http://localhost:3000
