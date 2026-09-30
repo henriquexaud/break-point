@@ -10,6 +10,7 @@ import challenges from "../../challenges.json"
 import Cookies from 'js-cookie';
 
 import { LevelUpModal } from "../components/levelUpModal";
+import { notify } from "../utils/notify";
 
 interface Challenge {
     img: string;
@@ -23,8 +24,11 @@ interface ChallengesContextData {
     experienceToNextLevel: number;
     challengeCompleted: number;
     activeChallenge: Challenge;
-    levelUp: () => void;
+    canSwapChallenge: boolean;
+    streak: number;
+    streakBonus: number;
     startNewChallenge: () => void;
+    swapChallenge: () => void;
     completeChallenge: () => void;
     resetChallenge: () => void;
     closeLevelUpModal: () => void;
@@ -35,21 +39,71 @@ interface ChallengesProviderProps {
     level: number;
     currentExperience: number;
     challengeCompleted: number;
+    streak: number;
+    lastActiveDate: string | null;
+}
+
+const BASE_EXPERIENCE = 100;
+const EXPERIENCE_INCREMENT = 50;
+
+// 100 xp no nível 1, e cada nível seguinte pede 50 xp a mais
+function getExperienceToNextLevel(level: number) {
+    return BASE_EXPERIENCE + EXPERIENCE_INCREMENT * (level - 1);
+}
+
+// Converte o xp acumulado em níveis (também ajusta progresso salvo com a curva antiga)
+function applyExperience(level: number, experience: number) {
+    while (experience >= getExperienceToNextLevel(level)) {
+        experience -= getExperienceToNextLevel(level);
+        level++;
+    }
+
+    return { level, experience };
+}
+
+const STREAK_BONUS_MIN_DAYS = 3;
+const STREAK_BONUS_RATE = 0.1;
+
+// Data no fuso local no formato YYYY-MM-DD
+function getDateKey(daysAgo = 0) {
+    const date = new Date();
+    date.setDate(date.getDate() - daysAgo);
+
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${date.getFullYear()}-${month}-${day}`;
 }
 
 export const ChallengeContext = createContext({} as ChallengesContextData);
 
 export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps) {
 
-    const [level, setLevel] = useState(rest.level ?? 1);
-    const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
-    const [challengeCompleted, setChallengeCompleted] = useState(rest.challengeCompleted ?? 0);
+    const initialProgress = applyExperience(rest.level ?? 1, rest.currentExperience ?? 0);
 
-    const [activeChallenge, setActiveChallenge] = useState(null);
+    const [level, setLevel] = useState(initialProgress.level);
+    const [currentExperience, setCurrentExperience] = useState(initialProgress.experience);
+    const [challengeCompleted, setChallengeCompleted] = useState(rest.challengeCompleted ?? 0);
+    const [streak, setStreak] = useState(rest.streak ?? 0);
+    const [lastActiveDate, setLastActiveDate] = useState(rest.lastActiveDate);
+
+    const [activeChallenge, setActiveChallenge] = useState<Challenge>(null);
+    const [canSwapChallenge, setCanSwapChallenge] = useState(false);
     const [isLevelUpModalOpen, setIsLevelUpModal] = useState(false);
     const lastChallenge = useRef<Challenge>(null);
 
-    const experienceToNextLevel = Math.pow((level + 1) * 5, 2)
+    const experienceToNextLevel = getExperienceToNextLevel(level);
+
+    const streakBonus = activeChallenge && streak >= STREAK_BONUS_MIN_DAYS
+        ? Math.round(activeChallenge.xp * STREAK_BONUS_RATE)
+        : 0;
+
+    useEffect(() => {
+        // A sequência é quebrada se o último ciclo foi antes de ontem
+        if (lastActiveDate && lastActiveDate !== getDateKey() && lastActiveDate !== getDateKey(1)) {
+            setStreak(0);
+        }
+    }, []);
 
     useEffect(() => {
         const options = { expires: 365 };
@@ -57,18 +111,29 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
         Cookies.set('level', String(level), options);
         Cookies.set('currentExperience', String(currentExperience), options);
         Cookies.set('challengeCompleted', String(challengeCompleted), options);
-    }, [level, currentExperience, challengeCompleted])
+        Cookies.set('streak', String(streak), options);
 
-    function levelUp() {
-        setLevel(level + 1);
-        setIsLevelUpModal(true);
-    }
+        if (lastActiveDate) {
+            Cookies.set('lastActiveDate', lastActiveDate, options);
+        }
+    }, [level, currentExperience, challengeCompleted, streak, lastActiveDate])
 
     function closeLevelUpModal() {
         setIsLevelUpModal(false);
     }
 
-    function startNewChallenge() {
+    function registerActivity() {
+        const today = getDateKey();
+
+        if (lastActiveDate === today) {
+            return;
+        }
+
+        setStreak(lastActiveDate === getDateKey(1) ? streak + 1 : 1);
+        setLastActiveDate(today);
+    }
+
+    function pickChallenge() {
         let challenge: Challenge;
 
         do {
@@ -77,15 +142,26 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
 
         lastChallenge.current = challenge;
 
-        setActiveChallenge(challenge)
+        return challenge;
+    }
 
-        new Audio('/icons/notification.mp3').play().catch(() => {});
+    function startNewChallenge() {
+        const challenge = pickChallenge();
 
-        if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification('Novo desafio', {
-                body: `Valendo ${challenge.xp}xp!`
-            })
+        registerActivity();
+        setActiveChallenge(challenge);
+        setCanSwapChallenge(true);
+
+        notify('Novo desafio', `Valendo ${challenge.xp}xp!`);
+    }
+
+    function swapChallenge() {
+        if (!activeChallenge || !canSwapChallenge) {
+            return;
         }
+
+        setActiveChallenge(pickChallenge());
+        setCanSwapChallenge(false);
     }
 
     function resetChallenge() {
@@ -97,15 +173,16 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
             return;
         }
 
-        const { xp } = activeChallenge;
+        const xp = activeChallenge.xp + streakBonus;
 
-        let finalExperience = currentExperience + xp;
+        const progress = applyExperience(level, currentExperience + xp);
 
-        if (finalExperience >= experienceToNextLevel) {
-            finalExperience = finalExperience - experienceToNextLevel;
-            levelUp();
+        if (progress.level > level) {
+            setLevel(progress.level);
+            setIsLevelUpModal(true);
         }
-        setCurrentExperience(finalExperience);
+
+        setCurrentExperience(progress.experience);
         setActiveChallenge(null);
         setChallengeCompleted(challengeCompleted + 1);
     }
@@ -116,13 +193,16 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
                 level,
                 currentExperience,
                 challengeCompleted,
-                levelUp,
                 startNewChallenge,
+                swapChallenge,
+                canSwapChallenge,
                 activeChallenge,
                 completeChallenge,
                 resetChallenge,
                 experienceToNextLevel,
-                closeLevelUpModal
+                closeLevelUpModal,
+                streak,
+                streakBonus
             }}
         >
             {children}

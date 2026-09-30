@@ -8,12 +8,16 @@ import {
 } from 'react';
 
 import { ChallengeContext } from './ChallengeContext';
+import { notify } from '../utils/notify';
+
+export type CountdownMode = 'focus' | 'shortBreak' | 'longBreak';
 
 interface CountdownContextData {
     minutes: number;
     seconds: number;
     isActive: boolean;
-    hasFinished: boolean;
+    mode: CountdownMode;
+    focusCycles: number;
     resetCountdown: () => void;
     startCountdown: () => void;
 }
@@ -24,35 +28,62 @@ interface CountdownProviderProps {
 
 export const CountdownContext = createContext({} as CountdownContextData)
 
-const CYCLE_DURATION = 25 * 60;
+export const CYCLES_BEFORE_LONG_BREAK = 4;
+
+const DURATIONS: Record<CountdownMode, number> = {
+    focus: 25 * 60,
+    shortBreak: 5 * 60,
+    longBreak: 15 * 60
+};
 
 let countdownTimeout: NodeJS.Timeout;
 
 export function CountdownProvider({ children }: CountdownProviderProps) {
     const { startNewChallenge } = useContext(ChallengeContext);
 
-    const [time, setTime] = useState(CYCLE_DURATION);
+    const [mode, setMode] = useState<CountdownMode>('focus');
+    const [time, setTime] = useState(DURATIONS.focus);
     const [isActive, setIsActive] = useState(false);
-    const [hasFinished, setHasFinished] = useState(false);
+    const [focusCycles, setFocusCycles] = useState(0);
     const endTime = useRef(0);
 
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
+
+    function startTimer(duration: number) {
+        endTime.current = Date.now() + duration * 1000;
+        setTime(duration);
+        setIsActive(true);
+    }
 
     function startCountdown() {
         if ('Notification' in window && Notification.permission === 'default') {
             Notification.requestPermission();
         }
 
-        endTime.current = Date.now() + time * 1000;
-        setIsActive(true);
+        startTimer(DURATIONS.focus);
     }
 
     function resetCountdown() {
         setIsActive(false);
         clearTimeout(countdownTimeout);
-        setTime(CYCLE_DURATION);
-        setHasFinished(false);
+        setMode('focus');
+        setTime(DURATIONS.focus);
+    }
+
+    function finishFocus() {
+        const cycles = focusCycles + 1;
+        const nextMode = cycles % CYCLES_BEFORE_LONG_BREAK === 0 ? 'longBreak' : 'shortBreak';
+
+        setFocusCycles(cycles);
+        setMode(nextMode);
+        startTimer(DURATIONS[nextMode]);
+        startNewChallenge();
+    }
+
+    function finishBreak() {
+        resetCountdown();
+        notify('Pausa encerrada', 'Hora de voltar ao foco!');
     }
 
     useEffect(() => {
@@ -62,9 +93,11 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
                 setTime(Math.max(0, Math.ceil((endTime.current - Date.now()) / 1000)));
             }, 1000);
         } else if (isActive && time === 0) {
-            setIsActive(false);
-            setHasFinished(true);
-            startNewChallenge();
+            if (mode === 'focus') {
+                finishFocus();
+            } else {
+                finishBreak();
+            }
         }
     }, [isActive, time]);
 
@@ -73,7 +106,8 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
             minutes,
             seconds,
             isActive,
-            hasFinished,
+            mode,
+            focusCycles,
             resetCountdown,
             startCountdown
         }}>

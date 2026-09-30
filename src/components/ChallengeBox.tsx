@@ -5,18 +5,17 @@ import { CountdownContext } from '../contexts/CountdownContext';
 import styles from '../styles/components/ChallengeBox.module.css';
 
 export function ChallengeBox() {
-    const { activeChallenge, resetChallenge, completeChallenge } = useContext(ChallengeContext);
-    const { resetCountdown } = useContext(CountdownContext);
+    const {
+        activeChallenge,
+        canSwapChallenge,
+        streakBonus,
+        resetChallenge,
+        completeChallenge,
+        swapChallenge
+    } = useContext(ChallengeContext);
+    const { mode } = useContext(CountdownContext);
 
-    function handleChallengeSucceeded() {
-        completeChallenge();
-        resetCountdown();
-    }
-
-    function handleChallengeFailed() {
-        resetChallenge();
-        resetCountdown();
-    }
+    const isBreak = mode !== 'focus';
 
     return (
 
@@ -24,7 +23,14 @@ export function ChallengeBox() {
             { activeChallenge ? (
                 <div className={styles.challengeActive}>
 
-                    <header>Ganhe {activeChallenge.xp} xp</header>
+                    <header>
+                        Ganhe {activeChallenge.xp + streakBonus} xp
+                        { streakBonus > 0 && (
+                            <span className={styles.streakBonus}>
+                                +{streakBonus} de bônus pela sequência 🔥
+                            </span>
+                        )}
+                    </header>
 
                     <main>
                         <img src={`icons/${activeChallenge.img}`} alt="objetivo" />
@@ -35,21 +41,34 @@ export function ChallengeBox() {
                     <footer>
                         <button
                             type='button'
-                            onClick={handleChallengeSucceeded}>Completei
+                            onClick={completeChallenge}>Completei
                         </button>
 
                         <button
                             type='button'
-                            onClick={handleChallengeFailed}>Desisti
+                            onClick={resetChallenge}>Desisti
                         </button>
                     </footer>
+
+                    { canSwapChallenge && (
+                        <button
+                            type='button'
+                            className={styles.swapButton}
+                            onClick={swapChallenge}>
+                            Trocar desafio
+                        </button>
+                    )}
                 </div>
             ) : (
                 <div className={styles.challengeNotActive}>
                     <p>
                         <img src="icons/flask.png" alt="level" />
                     </p>
-                    <strong>Finalize um ciclo para liberar o próximo desafio</strong>
+                    { isBreak ? (
+                        <strong>Aproveite o resto da pausa para descansar</strong>
+                    ) : (
+                        <strong>Finalize um ciclo para liberar o próximo desafio</strong>
+                    )}
                 </div>
             )
             }

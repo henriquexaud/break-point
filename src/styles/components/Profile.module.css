@@ -7,6 +7,7 @@
     width: 5.5rem;
     height: 5.5rem;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .profileContainer div {
@@ -29,4 +30,9 @@
     height: auto;
     margin-right: 0.5rem;
     transform: translateY(25%);
+}
+
+.profileContainer div p .streak {
+    margin-left: 0.75rem;
+    color: #f59e0b;
 }

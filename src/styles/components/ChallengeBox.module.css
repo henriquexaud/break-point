@@ -115,3 +115,23 @@
         min-height: 25rem;
     }
 }
+
+.challengeActive header .streakBonus {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #f59e0b;
+}
+
+.swapButton {
+    margin-top: 1rem;
+    background: transparent;
+    border: 0;
+    color: var(--text);
+    font-size: 0.875rem;
+    text-decoration: underline;
+}
+
+.swapButton:hover {
+    color: var(--title);
+}

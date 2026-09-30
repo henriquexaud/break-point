@@ -16,6 +16,8 @@ interface HomeProps {
   level: number;
   currentExperience: number;
   challengeCompleted: number;
+  streak: number;
+  lastActiveDate: string | null;
 }
 
 export default function Home(props: HomeProps) {
@@ -24,6 +26,8 @@ export default function Home(props: HomeProps) {
       level={props.level}
       currentExperience={props.currentExperience}
       challengeCompleted={props.challengeCompleted}
+      streak={props.streak}
+      lastActiveDate={props.lastActiveDate}
     >
       <div className={styles.container}>
         <Head>
@@ -49,13 +53,15 @@ export default function Home(props: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { level, currentExperience, challengeCompleted } = ctx.req.cookies;
+  const { level, currentExperience, challengeCompleted, streak, lastActiveDate } = ctx.req.cookies;
 
   return {
     props: {
       level: Number(level) || 1,
       currentExperience: Number(currentExperience) || 0,
-      challengeCompleted: Number(challengeCompleted) || 0
+      challengeCompleted: Number(challengeCompleted) || 0,
+      streak: Number(streak) || 0,
+      lastActiveDate: lastActiveDate || null
     }
   }
 }

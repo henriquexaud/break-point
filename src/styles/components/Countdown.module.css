@@ -77,3 +77,23 @@
         font-size: 1.5rem;
     }
 }
+
+.modeLabel {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    color: var(--text);
+}
+
+.modeLabelBreak {
+    color: var(--green);
+}
+
+.countdownButtonBreak {
+    background: var(--black);
+    color: var(--text);
+}
+
+.countdownButtonBreak:not(:disabled):hover {
+    background: #252525;
+}
