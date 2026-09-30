@@ -5,7 +5,7 @@ Link para versão online: https://break-point-beryl.vercel.app/
 
 ## Rodando localmente
 
-Requer **Node 16** (o Next.js 10 não funciona com Node 17+). A versão está fixada no `.nvmrc`.
+Requer **Node 18.17+** (recomendado Node 22, fixado no `.nvmrc`).
 
 ```bash
 nvm install && nvm use
