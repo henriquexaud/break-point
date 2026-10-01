@@ -2,7 +2,12 @@
     min-height: 100vh;
     max-width: 992px;
     margin: 0 auto;
-    padding: 2.5rem 2rem;
+    /* As áreas seguras afastam o conteúdo do notch e da barra de gestos quando o app está instalado */
+    padding:
+        calc(2.5rem + env(safe-area-inset-top))
+        calc(2rem + env(safe-area-inset-right))
+        calc(2.5rem + env(safe-area-inset-bottom))
+        calc(2rem + env(safe-area-inset-left));
     display: flex;
     flex-direction: column;
 }
@@ -18,7 +23,11 @@
 
 @media (max-width: 720px) {
     .container {
-        padding: 2rem 1rem;
+        padding:
+            calc(2rem + env(safe-area-inset-top))
+            calc(1rem + env(safe-area-inset-right))
+            calc(2rem + env(safe-area-inset-bottom))
+            calc(1rem + env(safe-area-inset-left));
     }
 
     .container section {

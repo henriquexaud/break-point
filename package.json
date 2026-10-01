@@ -8,10 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@serwist/next": "^9.5.12",
     "js-cookie": "^2.2.1",
     "next": "14",
     "react": "18",
-    "react-dom": "18"
+    "react-dom": "18",
+    "serwist": "^9.5.12"
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.6",

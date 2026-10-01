@@ -86,6 +86,7 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
     const [challengeCompleted, setChallengeCompleted] = useState(rest.challengeCompleted ?? 0);
     const [streak, setStreak] = useState(rest.streak ?? 0);
     const [lastActiveDate, setLastActiveDate] = useState(rest.lastActiveDate);
+    const [isProgressLoaded, setIsProgressLoaded] = useState(false);
 
     const [activeChallenge, setActiveChallenge] = useState<Challenge>(null);
     const [canSwapChallenge, setCanSwapChallenge] = useState(false);
@@ -99,13 +100,30 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
         : 0;
 
     useEffect(() => {
+        // Offline a página vem do cache do service worker, com o progresso de quando foi salva.
+        // Por isso o que vale são os cookies, e não as props
+        const saved = Cookies.get();
+        const progress = applyExperience(Number(saved.level) || 1, Number(saved.currentExperience) || 0);
+        const savedLastActiveDate = saved.lastActiveDate || null;
+
         // A sequência é quebrada se o último ciclo foi antes de ontem
-        if (lastActiveDate && lastActiveDate !== getDateKey() && lastActiveDate !== getDateKey(1)) {
-            setStreak(0);
-        }
+        const isStreakBroken = savedLastActiveDate
+            && savedLastActiveDate !== getDateKey()
+            && savedLastActiveDate !== getDateKey(1);
+
+        setLevel(progress.level);
+        setCurrentExperience(progress.experience);
+        setChallengeCompleted(Number(saved.challengeCompleted) || 0);
+        setStreak(isStreakBroken ? 0 : Number(saved.streak) || 0);
+        setLastActiveDate(savedLastActiveDate);
+        setIsProgressLoaded(true);
     }, []);
 
     useEffect(() => {
+        if (!isProgressLoaded) {
+            return;
+        }
+
         const options = { expires: 365 };
 
         Cookies.set('level', String(level), options);
@@ -116,7 +134,7 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
         if (lastActiveDate) {
             Cookies.set('lastActiveDate', lastActiveDate, options);
         }
-    }, [level, currentExperience, challengeCompleted, streak, lastActiveDate])
+    }, [isProgressLoaded, level, currentExperience, challengeCompleted, streak, lastActiveDate])
 
     function closeLevelUpModal() {
         setIsLevelUpModal(false);

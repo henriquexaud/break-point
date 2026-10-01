@@ -38,6 +38,9 @@ body {
     background: var(--background);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    /* Puxar a tela para baixo recarregaria o app e zeraria o ciclo em andamento */
+    overscroll-behavior-y: none;
 }
 
 body, input, textarea, button {

@@ -3,6 +3,7 @@ import { Countdown } from "../components/Countdown";
 import { ExperienceBar } from "../components/ExperienceBar";
 import { Profile } from '../components/Profile';
 import { ChallengeBox } from "../components/ChallengeBox";
+import { InstallButton } from "../components/InstallButton";
 
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
@@ -47,6 +48,8 @@ export default function Home(props: HomeProps) {
             </div>
           </section>
         </CountdownProvider>
+
+        <InstallButton />
       </div>
     </ChallengeProvider>
   )

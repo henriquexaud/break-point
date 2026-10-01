@@ -21,6 +21,16 @@ export default class MyDocument extends Document {
                         href="/icons/logo-bp.png"
                         type="image/png"
                     />
+                    <link rel="manifest" href="/manifest.webmanifest" />
+                    <meta name="theme-color" content="#0a0a0b" />
+                    <meta name="mobile-web-app-capable" content="yes" />
+                    <meta name="apple-mobile-web-app-capable" content="yes" />
+                    <meta name="apple-mobile-web-app-title" content="BreakPoint" />
+                    <meta
+                        name="apple-mobile-web-app-status-bar-style"
+                        content="black-translucent"
+                    />
+                    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
                 </Head>
                 <body>
                     <Main />

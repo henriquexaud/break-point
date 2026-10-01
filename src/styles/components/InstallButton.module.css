@@ -1,0 +1,23 @@
+.installContainer {
+    margin-top: 2.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.installContainer button {
+    background: transparent;
+    border: 0;
+    color: var(--text);
+    font-size: 0.875rem;
+    transition: color 0.2s;
+}
+
+.installContainer button:hover {
+    color: var(--title);
+    text-decoration: underline;
+}
+
+.installContainer p {
+    margin-top: 0.5rem;
+    line-height: 1.5;
+}
