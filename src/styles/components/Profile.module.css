@@ -7,6 +7,7 @@
     width: 5.5rem;
     height: 5.5rem;
     border-radius: 50%;
+    border: 2px solid var(--border);
     object-fit: cover;
 }
 
@@ -17,10 +18,13 @@
 .profileContainer div strong {
     font-size: 1.5rem;
     font-weight: 600;
+    letter-spacing: -0.01em;
     color: var(--title);
 }
 
 .profileContainer div p {
+    display: flex;
+    align-items: center;
     font-size: 1rem;
     margin-top: 0.5rem;
 }
@@ -29,10 +33,14 @@
     width: 1.3rem;
     height: auto;
     margin-right: 0.5rem;
-    transform: translateY(25%);
 }
 
 .profileContainer div p .streak {
     margin-left: 0.75rem;
-    color: #f59e0b;
+    padding: 0.2rem 0.625rem;
+    border-radius: 999px;
+    background: rgba(245, 158, 11, 0.12);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--orange);
 }

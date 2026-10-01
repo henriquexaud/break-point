@@ -1,5 +1,6 @@
 .overlay {
-    background: rgba(19, 18, 18, 0.8);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
     position: fixed;
     top: 0;
     bottom: 0;
@@ -11,12 +12,13 @@
 }
 
 .container {
-    background: var(--black);
+    background: var(--surface);
+    border: 1px solid var(--border);
     width: calc(100% - 2rem);
     max-width: 400px;
-    padding: 2rem 3rem;
-    border-radius: 5px;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
     text-align: center;
     position: relative;
 }
@@ -24,18 +26,21 @@
 .container header {
     font-size: 8.75rem;
     font-weight: 600;
-    color: rgb(84, 253, 84);
+    color: var(--green);
     background: url('/icons/levelup.svg') no-repeat center;
     background-size: contain;
 }
 
 .container strong {
-    font-size: 2.25rem;
+    display: block;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     color: var(--title);
 }
 
 .container p {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     color: var(--text);
     margin-top: 0.25rem;
 }
@@ -46,5 +51,11 @@
     top: 0.5rem;
     background: transparent;
     border: 0;
+    border-radius: 8px;
     font-size: 0;
+    transition: background-color 0.2s;
+}
+
+.container button:hover {
+    background: var(--surface-hover);
 }

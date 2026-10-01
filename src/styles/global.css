@@ -5,17 +5,21 @@
 }
 
 :root {
-    --black: #181818;
-    --background: #000;
-    --gray-line: #181818;
-    --text: #b6b6b6;
-    --text-highlight: #b3b9ff;
-    --title: #c7cdd8;
-    --red: #e83f5b;
-    --green: #4cd62b;
-    --blue: #5965e0;
-    --blue-dark: #4953b8;
-    --blue-twitter: #2aa9e0;
+    --background: #0a0a0b;
+    --surface: #151517;
+    --surface-hover: #1e1e21;
+    --border: #27272b;
+    --text: #a3a3ad;
+    --title: #ececf1;
+    --blue: #1a6fd8;
+    --blue-dark: #155fbb;
+    --blue-light: #4da3ff;
+    --green: #22c55e;
+    --green-dark: #15803d;
+    --green-darker: #166534;
+    --red: #e5484d;
+    --orange: #f59e0b;
+    --radius: 12px;
 }
 
 @media (max-width: 1000px) {
@@ -33,6 +37,7 @@
 body {
     background: var(--background);
     color: var(--text);
+    -webkit-font-smoothing: antialiased;
 }
 
 body, input, textarea, button {
@@ -43,7 +48,13 @@ button {
     cursor: pointer;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+button:focus-visible {
+    outline: 2px solid var(--blue-light);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
 }

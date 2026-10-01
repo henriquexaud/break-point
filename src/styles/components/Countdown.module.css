@@ -1,8 +1,8 @@
 .countdownContainer {
     display: flex;
     align-items: center;
-    font-size:5rem;
-    font-weight: 700;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
     color: var(--title)
 }
 
@@ -11,9 +11,11 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    background: var(--black);
-    border-radius: 5px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     font-size: 8.5rem;
+    letter-spacing: -0.02em;
     text-align: center;
 }
 
@@ -21,79 +23,66 @@
     flex: 1;
 }
 
-.countdownContainer > div span:first-child {
-    border-right: 2px solid #181818;
-}
-
-.countdownContainer > div span:last-child {
-    border-left: 2px solid #181818;
-}
-
 .countdownContainer > span {
     font-size: 3rem;
     margin: 0 0.5rem;
+    color: var(--text);
 }
 
 .countdownButton {
-    padding: 1.5rem;
-    margin-top: 2rem;
+    width: 100%;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 0px;
-    border-radius: 5px;
-    background: #0c68c4;
-    color: #dbdfe6;
-    font-size: 2rem;
-    font-weight: 400;
-    transition: background-color 0.2s;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    background: var(--blue);
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
-.countdownButton:not(:disabled):hover {
-    background: #0a59a8;
+.countdownButton:hover {
+    background: var(--blue-dark);
 }
 
-.countdownButtonActive {
-    background:#b1011e;
-}
-
-.countdownButtonActive:not(:disabled):hover {
-    background: #9c0c24;
-}
-
-.countdownButtonFinished {
-    background: var(--black);
+.countdownButtonActive,
+.countdownButtonBreak {
+    background: var(--surface);
+    border-color: var(--border);
     color: var(--text);
-    cursor: not-allowed;
+}
+
+.countdownButtonActive:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+}
+
+.countdownButtonBreak:hover {
+    background: var(--surface-hover);
+    color: var(--title);
 }
 
 @media (max-width: 720px) {
     .countdownContainer > div {
         font-size: 6rem;
     }
-
-    .countdownButton {
-        width: 100%;
-        font-size: 1.5rem;
-    }
 }
 
 .modeLabel {
     display: block;
-    margin-bottom: 1rem;
-    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--text);
 }
 
 .modeLabelBreak {
     color: var(--green);
-}
-
-.countdownButtonBreak {
-    background: var(--black);
-    color: var(--text);
-}
-
-.countdownButtonBreak:not(:disabled):hover {
-    background: #252525;
 }

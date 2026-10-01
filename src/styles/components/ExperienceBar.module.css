@@ -4,28 +4,31 @@
 }
 
 .experienceBar span {
-    font-size: 1rem;
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
 
 .experienceBar > div {
     flex:1;
-    height: 4px;
-    border-radius: 4px;
-    background: var(--gray-line);
+    height: 6px;
+    border-radius: 6px;
+    background: var(--surface-hover);
     margin: 0 1.5rem;
     position: relative;
 
 }
 
 .experienceBar > div > div {
-    height: 4px;
-    border-radius: 4px;
-    background: rgb(0, 131, 0);
+    height: 6px;
+    border-radius: 6px;
+    background: var(--green);
+    transition: width 0.4s ease;
 }
 
 span.currentExperience {
     position: absolute;
-    top: 12px;
+    top: 14px;
     transform: translateX(-50%);
+    color: var(--title);
 }
