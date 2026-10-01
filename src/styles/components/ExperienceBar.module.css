@@ -44,7 +44,7 @@ span.inlineExperience {
 }
 
 /* Com espaço sobrando, o xp atual acompanha a ponta da barra */
-@media (min-width: 481px) and (min-height: 561px) {
+@media (min-width: 480px) and (min-height: 561px) {
     .experienceBar {
         gap: 1.5rem;
         /* Reserva a altura do xp atual, que fica pendurado abaixo da barra */

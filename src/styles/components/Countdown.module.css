@@ -3,7 +3,7 @@
      * Altura ocupada por tudo que não é o relógio (margens, xp, perfil, botão e a caixa de desafio).
      * Os dígitos ficam com o que sobra da janela, então cada modo de layout informa o seu valor
      */
-    --timer-chrome: 31rem;
+    --timer-chrome: 31.5rem;
     --timer-min: 2.5rem;
     container-type: inline-size;
 }
@@ -105,9 +105,9 @@
 }
 
 /* A barra de xp completa é mais alta */
-@media (min-width: 481px) and (min-height: 561px) {
+@media (min-width: 480px) and (min-height: 561px) {
     .countdown {
-        --timer-chrome: 32.5rem;
+        --timer-chrome: 33rem;
     }
 }
 
@@ -125,7 +125,7 @@
 
 @media (max-height: 560px) {
     .countdown {
-        --timer-chrome: 21rem;
+        --timer-chrome: 22rem;
     }
 
     .modeLabel {
@@ -140,16 +140,60 @@
     }
 }
 
-/* Aqui a caixa de desafio não disputa altura: está ao lado do relógio ou escondida */
-@media (max-height: 560px) and (min-width: 721px), (max-height: 440px) {
+/* O aviso de "sem desafio" vira uma faixa baixa */
+@media (max-height: 440px) {
     .countdown {
-        --timer-chrome: 13rem;
+        --timer-chrome: 19rem;
+    }
+}
+
+/* Aqui a caixa de desafio não disputa altura: está ao lado do relógio ou escondida */
+@media (max-height: 380px) {
+    .countdown {
+        --timer-chrome: 14rem;
+    }
+}
+
+@media (max-height: 560px) and (min-width: 721px) {
+    .countdown {
+        --timer-chrome: 15rem;
+    }
+}
+
+/* Com o perfil ao lado, só o xp, o botão e o aviso descontam da altura do relógio */
+@media (max-height: 560px) and (min-width: 480px) and (max-width: 720px) {
+    [data-challenge='idle'] .countdown {
+        --timer-chrome: 17.5rem;
+    }
+}
+
+@media (max-height: 440px) and (min-width: 480px) and (max-width: 720px) {
+    [data-challenge='idle'] .countdown {
+        --timer-chrome: 13.5rem;
+    }
+}
+
+@media (max-height: 300px) and (min-width: 480px) and (max-width: 720px) {
+    [data-challenge='idle'] .countdown {
+        --timer-chrome: 11.5rem;
+    }
+}
+
+@media (max-height: 260px) and (min-width: 480px) and (max-width: 720px) {
+    [data-challenge='idle'] .countdown {
+        --timer-chrome: 7.5rem;
+    }
+}
+
+@media (max-height: 190px) and (min-width: 480px) and (max-width: 720px) {
+    [data-challenge='idle'] .countdown {
+        --timer-chrome: 4rem;
     }
 }
 
 @media (max-height: 300px) {
     .countdown {
-        --timer-chrome: 8rem;
+        --timer-chrome: 11.5rem;
     }
 
     .modeLabel {
@@ -162,9 +206,15 @@
     }
 }
 
+@media (max-height: 300px) and (min-width: 721px) {
+    .countdown {
+        --timer-chrome: 13.5rem;
+    }
+}
+
 @media (max-height: 190px) {
     .countdown {
-        --timer-chrome: 4rem;
+        --timer-chrome: 7.75rem;
         --timer-min: 1.5rem;
     }
 
@@ -175,6 +225,12 @@
     .countdownButton {
         padding: 0.375rem;
         font-size: 0.9375rem;
+    }
+}
+
+@media (max-height: 130px) {
+    .countdown {
+        --timer-chrome: 4rem;
     }
 }
 
@@ -219,6 +275,14 @@
         padding: 0.625rem 1rem;
         margin-top: 0;
         font-size: 0.9375rem;
+    }
+}
+
+/* Na mesma linha do perfil a faixa tem a largura do próprio conteúdo */
+@media (min-width: 480px) and (max-width: 720px) {
+    [data-challenge='active'] .countdown {
+        container-type: normal;
+        flex-wrap: nowrap;
     }
 }
 

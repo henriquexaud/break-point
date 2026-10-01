@@ -194,6 +194,12 @@
     }
 }
 
+@media (max-height: 660px) and (max-width: 720px) {
+    .challengeBoxContainer {
+        padding: 1.125rem;
+    }
+}
+
 /* Versão enxuta do desafio: só o xp, a descrição e os botões */
 @media (max-height: 560px), (max-width: 279px) {
     .challengeBoxContainer {
@@ -257,8 +263,32 @@
     }
 }
 
-/* Em uma coluna o aviso de "sem desafio" cede a altura para o relógio */
+/* Em uma coluna e com pouca altura, o aviso de "sem desafio" vira uma faixa: ícone e texto na mesma linha */
 @media (max-height: 440px) and (max-width: 720px) {
+    [data-challenge='idle'] .challengeBoxContainer {
+        padding: 0.625rem 0.875rem;
+    }
+
+    .challengeNotActive {
+        flex-direction: row;
+        gap: 0.75rem;
+        text-align: left;
+    }
+
+    .challengeNotActive strong {
+        max-width: none;
+        font-size: 0.875rem;
+        line-height: 1.35;
+    }
+
+    .challengeNotActive p img {
+        height: 1.75rem;
+        margin-bottom: 0;
+    }
+}
+
+/* Sem altura nem para a faixa, ela cede o espaço para o relógio */
+@media (max-height: 380px) and (max-width: 479px), (max-height: 260px) and (max-width: 720px) {
     [data-challenge='idle'] .challengeBoxContainer {
         display: none;
     }
@@ -268,7 +298,9 @@
     .challengeBoxContainer {
         padding: 0.625rem;
     }
+}
 
+@media (max-height: 300px) and (min-width: 721px) {
     .challengeNotActive p {
         display: none;
     }

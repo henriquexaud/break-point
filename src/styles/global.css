@@ -25,10 +25,12 @@
 /*
  * Tudo é dimensionado em rem: reduzir a raiz encolhe a interface inteira.
  * Os módulos de componentes repetem estes limites:
- *   largura > 720px  duas colunas (relógio e desafio lado a lado)
- *   altura <= 560px  compacto: cabeçalho em uma linha, sem ícones grandes
- *   altura <= 300px  só a barra de xp, o relógio e o botão
- *   altura <= 190px  só o relógio e o botão
+ *   largura > 720px   duas colunas (relógio e desafio lado a lado)
+ *   largura >= 480px  em uma coluna: com altura <= 560px o perfil vira uma coluna ao lado do relógio,
+ *                     e com desafio ativo o perfil divide a linha com o relógio
+ *   altura <= 560px   compacto: tamanhos menores, desafio sem ilustração
+ *   altura <= 300px   margens mínimas, xp do desafio no botão
+ *   altura <= 190px   sem a barra de xp nem o rótulo do relógio
  */
 @media (max-width: 1000px), (max-height: 700px) {
     html{

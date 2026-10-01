@@ -31,3 +31,10 @@
         margin-top: 0.25rem;
     }
 }
+
+/* Uma janela deste tamanho já é o app instalado: o espaço fica para o relógio */
+@media (max-height: 260px) {
+    .installContainer {
+        display: none;
+    }
+}

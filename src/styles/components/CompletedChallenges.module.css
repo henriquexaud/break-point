@@ -52,14 +52,40 @@
     .completedChallengesContainer > span:first-child {
         font-size: 0.75rem;
     }
+}
 
-    .completedChallengesContainer > span:last-child {
-        font-size: 1.0625rem;
+/* Na coluna do perfil, ao lado do relógio: "22 ciclos" em uma linha */
+@media (max-height: 560px) and (min-width: 480px) and (max-width: 720px) {
+    [data-challenge='idle'] .completedChallengesContainer {
+        flex-direction: row-reverse;
+        align-items: baseline;
+        gap: 0.3125rem;
+    }
+
+    [data-challenge='idle'] .completedChallengesContainer > span:first-child {
+        font-size: 0.875rem;
+    }
+
+    [data-challenge='idle'] .completedChallengesContainer > span:last-child {
+        font-size: 1rem;
+    }
+}
+
+@media (max-height: 150px) and (min-width: 480px) and (max-width: 720px) {
+    [data-challenge='idle'] .completedChallengesContainer {
+        display: none;
     }
 }
 
 @media (max-width: 279px) {
     .completedChallengesContainer > span:first-child {
+        display: none;
+    }
+}
+
+/* Dividindo a linha com o relógio em pausa, os ciclos só entram quando há largura */
+@media (min-width: 480px) and (max-width: 559px) {
+    [data-challenge='active'] .completedChallengesContainer {
         display: none;
     }
 }
