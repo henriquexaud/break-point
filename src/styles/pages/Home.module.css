@@ -1,38 +1,133 @@
 .container {
+    --pad-x: 1rem;
+    --pad-y: clamp(1rem, 4vh, 2rem);
+    --gap: clamp(1rem, 3.5vh, 1.75rem);
     min-height: 100vh;
+    min-height: 100dvh;
     max-width: 992px;
     margin: 0 auto;
     /* As áreas seguras afastam o conteúdo do notch e da barra de gestos quando o app está instalado */
     padding:
-        calc(2.5rem + env(safe-area-inset-top))
-        calc(2rem + env(safe-area-inset-right))
-        calc(2.5rem + env(safe-area-inset-bottom))
-        calc(2rem + env(safe-area-inset-left));
+        calc(var(--pad-y) + env(safe-area-inset-top))
+        calc(var(--pad-x) + env(safe-area-inset-right))
+        calc(var(--pad-y) + env(safe-area-inset-bottom))
+        calc(var(--pad-x) + env(safe-area-inset-left));
     display: flex;
     flex-direction: column;
+    gap: var(--gap);
 }
 
-.container section{
+/* O relógio desconta a altura do botão de instalar para continuar cabendo na janela */
+.container:has(> footer) {
+    --install-space: 2.5rem;
+}
+
+.container section {
     flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6.25rem;
-    align-content: center;
-    margin-top: 4rem;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--gap);
 }
 
-@media (max-width: 720px) {
+.timerColumn {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--gap);
+}
+
+/* Perfil e ciclos completos dividem uma linha só */
+.summary {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+@media (max-width: 359px) {
     .container {
-        padding:
-            calc(2rem + env(safe-area-inset-top))
-            calc(1rem + env(safe-area-inset-right))
-            calc(2rem + env(safe-area-inset-bottom))
-            calc(1rem + env(safe-area-inset-left));
+        --pad-x: 0.75rem;
+    }
+
+    .summary {
+        gap: 0.5rem;
+    }
+}
+
+@media (min-width: 721px) {
+    .container {
+        --pad-x: 2rem;
     }
 
     .container section {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-        margin-top: 3rem;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-content: center;
+        gap: clamp(1.5rem, 7vw, 6.25rem);
+    }
+}
+
+/* Desktop: há espaço para o perfil e os ciclos completos em blocos separados */
+@media (min-width: 721px) and (min-height: 561px) {
+    .container {
+        --pad-y: clamp(1.25rem, 5vh, 2.5rem);
+        --gap: clamp(1rem, 5vh, 2.75rem);
+    }
+
+    .timerColumn,
+    .summary {
+        display: block;
+    }
+}
+
+@media (max-height: 560px) {
+    .container {
+        --pad-x: 0.75rem;
+        --pad-y: 0.75rem;
+        --gap: 0.75rem;
+    }
+}
+
+@media (max-height: 560px) and (min-width: 721px) {
+    .container {
+        --pad-x: 1.25rem;
+    }
+
+    .container section {
+        gap: 1.25rem;
+    }
+}
+
+/* O aviso de "sem desafio" some aqui: o que resta fica junto, centralizado na janela */
+@media (max-height: 440px) and (max-width: 720px) {
+    .container[data-challenge='idle'] {
+        justify-content: center;
+    }
+
+    .container[data-challenge='idle'] section {
+        flex: none;
+    }
+}
+
+/* Sem altura para tudo, o desafio ativo fica com o espaço do perfil */
+@media (max-height: 400px) and (max-width: 720px) {
+    .container[data-challenge='active'] .summary {
+        display: none;
+    }
+}
+
+@media (max-height: 300px) {
+    .container {
+        --pad-x: 0.5rem;
+        --pad-y: 0.5rem;
+        --gap: 0.5rem;
+    }
+
+    .summary {
+        display: none;
     }
 }

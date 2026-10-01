@@ -1,19 +1,65 @@
+/* Ao lado do perfil: o número em cima e "ciclos" embaixo */
 .completedChallengesContainer {
+    flex: none;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 3rem 0;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
+    flex-direction: column-reverse;
+    align-items: flex-end;
 }
 
-.completedChallengesContainer span:first-child {
-    font-size: 1.125rem;
+.completedChallengesContainer > span:first-child {
+    font-size: 0.8125rem;
+    text-transform: lowercase;
 }
 
-.completedChallengesContainer span:last-child {
-    font-size: 1.5rem;
+.labelRest {
+    display: none;
+}
+
+.completedChallengesContainer > span:last-child {
+    font-size: 1.25rem;
     font-weight: 600;
+    line-height: 1.2;
     font-variant-numeric: tabular-nums;
     color: var(--title);
+}
+
+@media (min-width: 721px) and (min-height: 561px) {
+    .completedChallengesContainer {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin: clamp(1.25rem, 5vh, 3rem) 0;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .completedChallengesContainer > span:first-child {
+        font-size: 1.125rem;
+        text-transform: none;
+    }
+
+    .labelRest {
+        display: inline;
+    }
+
+    .completedChallengesContainer > span:last-child {
+        font-size: 1.5rem;
+        line-height: inherit;
+    }
+}
+
+@media (max-height: 560px) {
+    .completedChallengesContainer > span:first-child {
+        font-size: 0.75rem;
+    }
+
+    .completedChallengesContainer > span:last-child {
+        font-size: 1.0625rem;
+    }
+}
+
+@media (max-width: 279px) {
+    .completedChallengesContainer > span:first-child {
+        display: none;
+    }
 }

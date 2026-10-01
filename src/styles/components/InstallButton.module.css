@@ -1,5 +1,4 @@
 .installContainer {
-    margin-top: 2.5rem;
     text-align: center;
     font-size: 0.875rem;
 }
@@ -20,4 +19,15 @@
 .installContainer p {
     margin-top: 0.5rem;
     line-height: 1.5;
+}
+
+@media (max-height: 560px) {
+    .installContainer,
+    .installContainer button {
+        font-size: 0.8125rem;
+    }
+
+    .installContainer p {
+        margin-top: 0.25rem;
+    }
 }

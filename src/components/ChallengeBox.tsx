@@ -27,7 +27,7 @@ export function ChallengeBox() {
                         Ganhe {activeChallenge.xp + streakBonus} xp
                         { streakBonus > 0 && (
                             <span className={styles.streakBonus}>
-                                +{streakBonus} de bônus pela sequência 🔥
+                                +{streakBonus}<span className={styles.streakBonusText}> de bônus pela sequência</span> 🔥
                             </span>
                         )}
                     </header>
@@ -42,6 +42,7 @@ export function ChallengeBox() {
                         <button
                             type='button'
                             onClick={completeChallenge}>Completei
+                            <span className={styles.buttonXp}> +{activeChallenge.xp + streakBonus} xp</span>
                         </button>
 
                         <button

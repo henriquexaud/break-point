@@ -31,7 +31,8 @@ export function Profile() {
                             className={styles.streak}
                             title="Dias seguidos com pelo menos um ciclo completo"
                         >
-                            🔥 {streak} {streak === 1 ? 'dia' : 'dias'}
+                            🔥 {streak}
+                            <span className={styles.streakUnit}> {streak === 1 ? 'dia' : 'dias'}</span>
                         </span>
                     )}
                 </p>

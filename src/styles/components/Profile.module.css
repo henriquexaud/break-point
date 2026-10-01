@@ -1,32 +1,41 @@
 .profileContainer {
+    min-width: 0;
     display: flex;
     align-items: center;
+    gap: 0.875rem;
 }
 
 .profileContainer > img {
-    width: 5.5rem;
-    height: 5.5rem;
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
     border: 2px solid var(--border);
     object-fit: cover;
 }
 
 .profileContainer div {
-    margin-left: 1.5rem;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .profileContainer div strong {
-    font-size: 1.5rem;
+    display: block;
+    font-size: 1.25rem;
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--title);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .profileContainer div p {
     display: flex;
     align-items: center;
-    font-size: 1rem;
-    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+    margin-top: 0.25rem;
+    white-space: nowrap;
 }
 
 .profileContainer div p img {
@@ -43,4 +52,69 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--orange);
+}
+
+@media (min-width: 721px) and (min-height: 561px) {
+    .profileContainer {
+        gap: 1.5rem;
+    }
+
+    .profileContainer > img {
+        width: 5.5rem;
+        height: 5.5rem;
+    }
+
+    .profileContainer div strong {
+        font-size: 1.5rem;
+        white-space: normal;
+    }
+
+    .profileContainer div p {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-height: 560px), (max-width: 359px) {
+    .profileContainer {
+        gap: 0.625rem;
+    }
+
+    .profileContainer > img {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .profileContainer div strong {
+        font-size: 1rem;
+    }
+
+    .profileContainer div p {
+        font-size: 0.8125rem;
+        margin-top: 0.125rem;
+    }
+
+    .profileContainer div p img {
+        width: 1rem;
+        margin-right: 0.375rem;
+    }
+
+    .profileContainer div p .streak {
+        margin-left: 0.5rem;
+        padding: 0.0625rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 279px) {
+    .profileContainer div p img,
+    .streakUnit {
+        display: none;
+    }
+}
+
+@media (max-width: 239px) {
+    .profileContainer > img {
+        display: none;
+    }
 }

@@ -1,12 +1,18 @@
+/* Versão enxuta: a barra e "atual / total" na mesma linha */
 .experienceBar {
     display:flex;
     align-items: center;
+    gap: 0.75rem;
 }
 
 .experienceBar span {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+}
+
+.experienceBar > span:first-child {
+    display: none;
 }
 
 .experienceBar > div {
@@ -14,7 +20,6 @@
     height: 6px;
     border-radius: 6px;
     background: var(--surface-hover);
-    margin: 0 1.5rem;
     position: relative;
 
 }
@@ -27,8 +32,47 @@
 }
 
 span.currentExperience {
+    display: none;
     position: absolute;
     top: 14px;
     transform: translateX(-50%);
     color: var(--title);
+}
+
+span.inlineExperience {
+    color: var(--title);
+}
+
+/* Com espaço sobrando, o xp atual acompanha a ponta da barra */
+@media (min-width: 481px) and (min-height: 561px) {
+    .experienceBar {
+        gap: 1.5rem;
+        /* Reserva a altura do xp atual, que fica pendurado abaixo da barra */
+        margin-bottom: 1.25rem;
+    }
+
+    .experienceBar span {
+        font-size: 0.875rem;
+    }
+
+    .experienceBar > span:first-child,
+    span.currentExperience {
+        display: block;
+    }
+
+    span.inlineExperience {
+        display: none;
+    }
+}
+
+@media (max-height: 300px) and (max-width: 720px) {
+    [data-challenge='active'] .experienceBar {
+        display: none;
+    }
+}
+
+@media (max-height: 190px) {
+    .experienceBar {
+        display: none;
+    }
 }

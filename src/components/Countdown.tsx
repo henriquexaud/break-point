@@ -39,24 +39,26 @@ export function Countdown() {
     }
 
     return (
-        <div>
+        <div className={styles.countdown}>
             <Head>
                 <title>{title}</title>
             </Head>
 
-            <span className={`${styles.modeLabel} ${isBreak ? styles.modeLabelBreak : ''}`}>
-                {label}
-            </span>
+            <div className={styles.display}>
+                <span className={`${styles.modeLabel} ${isBreak ? styles.modeLabelBreak : ''}`}>
+                    {label}
+                </span>
 
-            <div className={styles.countdownContainer}>
-                <div>
-                    <span>{minuteLeft}</span>
-                    <span>{minuteRight}</span>
-                </div>
-                <span>:</span>
-                <div>
-                    <span>{secondLeft}</span>
-                    <span>{secondRight}</span>
+                <div className={styles.countdownContainer}>
+                    <div>
+                        <span>{minuteLeft}</span>
+                        <span>{minuteRight}</span>
+                    </div>
+                    <span>:</span>
+                    <div>
+                        <span>{secondLeft}</span>
+                        <span>{secondRight}</span>
+                    </div>
                 </div>
             </div>
 

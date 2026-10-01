@@ -1,5 +1,6 @@
 .challengeBoxContainer {
-    height: 100%;
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +8,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .challengeNotActive {
@@ -20,7 +21,7 @@
 
 .challengeNotActive strong {
     max-width: 18rem;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 400;
     line-height: 1.5;
 }
@@ -33,9 +34,9 @@
 }
 
 .challengeNotActive p img {
-    height: 4.5rem;
+    height: 3.5rem;
     width: auto;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .challengeActive {
@@ -50,7 +51,7 @@
 
 .challengeActive header {
     width: 100%;
-    padding-bottom: 1.25rem;
+    padding-bottom: 1rem;
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--blue-light);
@@ -97,6 +98,8 @@
     width: 100%;
     display: flex;
     flex-direction: row-reverse;
+    /* Sem largura para os dois lado a lado, "Desisti" desce para a linha de baixo */
+    flex-wrap: wrap;
     gap: 0.75rem;
 }
 
@@ -106,6 +109,7 @@
     border: 1px solid transparent;
     border-radius: var(--radius);
     font-weight: 500;
+    white-space: nowrap;
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
@@ -129,6 +133,11 @@
     color: var(--red);
 }
 
+/* O xp só vai para o botão quando o cabeçalho do desafio some */
+.buttonXp {
+    display: none;
+}
+
 .swapButton {
     margin-top: 1rem;
     background: transparent;
@@ -143,10 +152,173 @@
     text-decoration: underline;
 }
 
-@media (max-width: 720px) {
+@media (min-width: 721px) and (min-height: 561px) {
     .challengeBoxContainer {
-        height: auto;
-        min-height: 25rem;
-        padding: 1.5rem;
+        padding: 2rem;
+    }
+
+    .challengeNotActive strong {
+        font-size: 1.25rem;
+    }
+
+    .challengeNotActive p img {
+        height: 4.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .challengeActive header {
+        padding-bottom: 1.25rem;
+    }
+}
+
+/* Abaixo destas alturas a ilustração do desafio empurraria os botões para fora da janela */
+@media (max-height: 700px) {
+    .challengeActive main img {
+        height: 4rem;
+    }
+}
+
+@media (max-height: 660px) {
+    .challengeActive main img {
+        display: none;
+    }
+
+    .challengeActive main strong {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 359px) {
+    .challengeBoxContainer {
+        padding: 1rem;
+    }
+}
+
+/* Versão enxuta do desafio: só o xp, a descrição e os botões */
+@media (max-height: 560px), (max-width: 279px) {
+    .challengeBoxContainer {
+        padding: 0.875rem;
+        border-radius: var(--radius);
+    }
+
+    .challengeNotActive strong {
+        font-size: 0.9375rem;
+    }
+
+    .challengeNotActive p img {
+        height: 2.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .challengeActive header {
+        padding-bottom: 0;
+        border-bottom: 0;
+        font-size: 0.875rem;
+    }
+
+    .challengeActive header .streakBonus {
+        display: inline;
+        margin: 0 0 0 0.5rem;
+        white-space: nowrap;
+    }
+
+    .streakBonusText {
+        display: none;
+    }
+
+    .challengeActive main {
+        padding: 0.5rem 0;
+    }
+
+    .challengeActive main img,
+    .challengeActive main strong {
+        display: none;
+    }
+
+    .challengeActive main p {
+        max-width: 34rem;
+        font-size: 0.9375rem;
+        line-height: 1.45;
+        padding-top: 0;
+    }
+
+    .challengeActive footer {
+        gap: 0.5rem;
+    }
+
+    .challengeActive footer button {
+        padding: 0.625rem;
+        font-size: 0.9375rem;
+    }
+
+    .swapButton {
+        margin-top: 0.5rem;
+        font-size: 0.8125rem;
+    }
+}
+
+/* Em uma coluna o aviso de "sem desafio" cede a altura para o relógio */
+@media (max-height: 440px) and (max-width: 720px) {
+    [data-challenge='idle'] .challengeBoxContainer {
+        display: none;
+    }
+}
+
+@media (max-height: 300px) {
+    .challengeBoxContainer {
+        padding: 0.625rem;
+    }
+
+    .challengeNotActive p {
+        display: none;
+    }
+}
+
+/* O xp passa para o botão de completar e libera a linha do cabeçalho */
+@media (max-height: 300px) {
+    .challengeActive header {
+        display: none;
+    }
+
+    .challengeActive main {
+        padding-top: 0;
+    }
+
+    .buttonXp {
+        display: inline;
+    }
+}
+
+@media (max-height: 190px) {
+    .challengeBoxContainer {
+        padding: 0.5rem;
+    }
+
+    .challengeActive main {
+        padding-bottom: 0.375rem;
+    }
+
+    /* A troca de desafio sobe para a linha dos botões */
+    .challengeActive {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0 0.75rem;
+    }
+
+    .challengeActive main {
+        flex: 1 0 100%;
+    }
+
+    .challengeActive footer {
+        flex: 1;
+        width: auto;
+    }
+
+    .challengeActive footer button {
+        padding: 0.375rem;
+    }
+
+    .swapButton {
+        margin-top: 0;
     }
 }

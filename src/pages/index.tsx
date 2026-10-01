@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import { CompletedChallenges } from "../components/CompletedChallenges";
 import { Countdown } from "../components/Countdown";
 import { ExperienceBar } from "../components/ExperienceBar";
@@ -11,7 +13,7 @@ import { GetServerSideProps } from 'next';
 import styles from '../styles/pages/Home.module.css';
 
 import { CountdownProvider } from "../contexts/CountdownContext";
-import { ChallengeProvider } from "../contexts/ChallengeContext";
+import { ChallengeContext, ChallengeProvider } from "../contexts/ChallengeContext";
 
 interface HomeProps {
   level: number;
@@ -19,6 +21,33 @@ interface HomeProps {
   challengeCompleted: number;
   streak: number;
   lastActiveDate: string | null;
+}
+
+function HomeContent() {
+  const { activeChallenge } = useContext(ChallengeContext);
+
+  return (
+    // Em janelas pequenas o desafio ativo toma o lugar do relógio: o CSS decide pelo data-challenge
+    <div className={styles.container} data-challenge={activeChallenge ? 'active' : 'idle'}>
+      <Head>
+        <title>BreakPoint</title>
+      </Head>
+
+      <ExperienceBar />
+      <section>
+        <div className={styles.timerColumn}>
+          <div className={styles.summary}>
+            <Profile />
+            <CompletedChallenges />
+          </div>
+          <Countdown />
+        </div>
+        <ChallengeBox />
+      </section>
+
+      <InstallButton />
+    </div>
+  )
 }
 
 export default function Home(props: HomeProps) {
@@ -30,27 +59,9 @@ export default function Home(props: HomeProps) {
       streak={props.streak}
       lastActiveDate={props.lastActiveDate}
     >
-      <div className={styles.container}>
-        <Head>
-          <title>BreakPoint</title>
-        </Head>
-
-        <ExperienceBar />
-        <CountdownProvider>
-          <section>
-            <div>
-              <Profile />
-              <CompletedChallenges />
-              <Countdown />
-            </div>
-            <div>
-              <ChallengeBox />
-            </div>
-          </section>
-        </CountdownProvider>
-
-        <InstallButton />
-      </div>
+      <CountdownProvider>
+        <HomeContent />
+      </CountdownProvider>
     </ChallengeProvider>
   )
 }

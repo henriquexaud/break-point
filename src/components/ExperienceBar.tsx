@@ -24,7 +24,10 @@ export function ExperienceBar() {
                     </span>
                 )}
             </div>
-            <span>{experienceToNextLevel} xp</span>
+            <span>
+                <span className={styles.inlineExperience}>{currentExperience} / </span>
+                {experienceToNextLevel} xp
+            </span>
         </header>
     );
 }

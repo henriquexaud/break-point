@@ -9,14 +9,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0.5rem;
 }
 
 .container {
     background: var(--surface);
     border: 1px solid var(--border);
-    width: calc(100% - 2rem);
+    width: 100%;
     max-width: 400px;
-    padding: 2.5rem 3rem;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: clamp(0.75rem, 7vh, 2.5rem) clamp(1rem, 8vw, 3rem);
     border-radius: 16px;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
     text-align: center;
@@ -24,7 +27,9 @@
 }
 
 .container header {
-    font-size: 8.75rem;
+    /* Encolhe junto com a janela para o modal nunca passar da tela */
+    font-size: clamp(2.5rem, min(30vh, 38vw), 8.75rem);
+    line-height: 1.2;
     font-weight: 600;
     color: var(--green);
     background: url('/icons/levelup.svg') no-repeat center;
@@ -33,22 +38,22 @@
 
 .container strong {
     display: block;
-    font-size: 2rem;
+    font-size: clamp(1.125rem, 7vh, 2rem);
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--title);
 }
 
 .container p {
-    font-size: 1.125rem;
+    font-size: clamp(0.875rem, 4vh, 1.125rem);
     color: var(--text);
     margin-top: 0.25rem;
 }
 
 .container button {
     position:absolute;
-    right: 0.5rem;
-    top: 0.5rem;
+    right: 0.25rem;
+    top: 0.25rem;
     background: transparent;
     border: 0;
     border-radius: 8px;
@@ -58,4 +63,10 @@
 
 .container button:hover {
     background: var(--surface-hover);
+}
+
+@media (max-height: 300px) {
+    .container p {
+        display: none;
+    }
 }

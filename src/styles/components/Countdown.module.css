@@ -1,9 +1,46 @@
+.countdown {
+    /*
+     * Altura ocupada por tudo que não é o relógio (margens, xp, perfil, botão e a caixa de desafio).
+     * Os dígitos ficam com o que sobra da janela, então cada modo de layout informa o seu valor
+     */
+    --timer-chrome: 31rem;
+    --timer-min: 2.5rem;
+    container-type: inline-size;
+}
+
+.display {
+    min-width: 0;
+}
+
+.modeLabel {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--text);
+}
+
+.modeLabelBreak {
+    color: var(--green);
+}
+
 .countdownContainer {
     display: flex;
     align-items: center;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
-    color: var(--title)
+    color: var(--title);
+    font-size: clamp(2.5rem, 22vw, 6rem);
+    /* Limitado pela largura da coluna (cqi) e pela altura que sobra na janela */
+    font-size: clamp(
+        var(--timer-min),
+        min(33cqi, calc((100dvh - var(--timer-chrome) - var(--install-space, 0px)) / 1.2)),
+        8.5rem
+    );
+    line-height: 1.2;
 }
 
 .countdownContainer > div {
@@ -14,7 +51,6 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    font-size: 8.5rem;
     letter-spacing: -0.02em;
     text-align: center;
 }
@@ -24,15 +60,15 @@
 }
 
 .countdownContainer > span {
-    font-size: 3rem;
-    margin: 0 0.5rem;
+    font-size: 0.35em;
+    margin: 0 0.17em;
     color: var(--text);
 }
 
 .countdownButton {
     width: 100%;
-    padding: 1.25rem;
-    margin-top: 1.5rem;
+    padding: 1.125rem;
+    margin-top: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,8 +76,9 @@
     border-radius: var(--radius);
     background: var(--blue);
     color: #fff;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 600;
+    white-space: nowrap;
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
@@ -67,22 +104,133 @@
     color: var(--title);
 }
 
-@media (max-width: 720px) {
-    .countdownContainer > div {
-        font-size: 6rem;
+/* A barra de xp completa é mais alta */
+@media (min-width: 481px) and (min-height: 561px) {
+    .countdown {
+        --timer-chrome: 32.5rem;
     }
 }
 
-.modeLabel {
-    display: block;
-    margin-bottom: 0.75rem;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text);
+@media (min-width: 721px) and (min-height: 561px) {
+    .countdown {
+        --timer-chrome: calc(27vh + 19rem);
+    }
+
+    .countdownButton {
+        padding: 1.25rem;
+        margin-top: 1.5rem;
+        font-size: 1.25rem;
+    }
 }
 
-.modeLabelBreak {
-    color: var(--green);
+@media (max-height: 560px) {
+    .countdown {
+        --timer-chrome: 21rem;
+    }
+
+    .modeLabel {
+        margin-bottom: 0.375rem;
+        font-size: 0.75rem;
+    }
+
+    .countdownButton {
+        padding: 0.75rem;
+        margin-top: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+/* Aqui a caixa de desafio não disputa altura: está ao lado do relógio ou escondida */
+@media (max-height: 560px) and (min-width: 721px), (max-height: 440px) {
+    .countdown {
+        --timer-chrome: 13rem;
+    }
+}
+
+@media (max-height: 300px) {
+    .countdown {
+        --timer-chrome: 8rem;
+    }
+
+    .modeLabel {
+        margin-bottom: 0.25rem;
+    }
+
+    .countdownButton {
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-height: 190px) {
+    .countdown {
+        --timer-chrome: 4rem;
+        --timer-min: 1.5rem;
+    }
+
+    .modeLabel {
+        display: none;
+    }
+
+    .countdownButton {
+        padding: 0.375rem;
+        font-size: 0.9375rem;
+    }
+}
+
+/* Em uma coluna o desafio ativo é o assunto da tela: o relógio vira uma faixa com o tempo e o botão */
+@media (max-width: 720px) {
+    [data-challenge='active'] .countdown {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem 1rem;
+    }
+
+    [data-challenge='active'] .modeLabel {
+        margin-bottom: 0;
+        font-size: 0.75rem;
+    }
+
+    [data-challenge='active'] .countdownContainer {
+        font-size: 2rem;
+        line-height: 1.15;
+    }
+
+    [data-challenge='active'] .countdownContainer > div {
+        flex: none;
+        background: none;
+        border: 0;
+        letter-spacing: 0;
+    }
+
+    [data-challenge='active'] .countdownContainer > div span {
+        flex: none;
+    }
+
+    [data-challenge='active'] .countdownContainer > span {
+        font-size: 1em;
+        margin: 0 0.05em;
+    }
+
+    [data-challenge='active'] .countdownButton {
+        width: auto;
+        padding: 0.625rem 1rem;
+        margin-top: 0;
+        font-size: 0.9375rem;
+    }
+}
+
+@media (max-width: 720px) and (max-height: 300px) {
+    [data-challenge='active'] .modeLabel {
+        display: none;
+    }
+}
+
+/* Só cabe o desafio: o relógio volta quando ele for concluído */
+@media (max-width: 720px) and (max-height: 220px) {
+    [data-challenge='active'] .countdown {
+        display: none;
+    }
 }

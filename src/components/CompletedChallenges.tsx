@@ -7,8 +7,8 @@ export function CompletedChallenges() {
     const { challengeCompleted } = useContext(ChallengeContext);
 
     return (
-        <div className={styles.completedChallengesContainer}>
-            <span>Ciclos completos</span>
+        <div className={styles.completedChallengesContainer} title="Ciclos completos">
+            <span>Ciclos<span className={styles.labelRest}> completos</span></span>
             <span>{challengeCompleted}</span>
         </div>
     )

@@ -22,13 +22,21 @@
     --radius: 12px;
 }
 
-@media (max-width: 1000px) {
+/*
+ * Tudo é dimensionado em rem: reduzir a raiz encolhe a interface inteira.
+ * Os módulos de componentes repetem estes limites:
+ *   largura > 720px  duas colunas (relógio e desafio lado a lado)
+ *   altura <= 560px  compacto: cabeçalho em uma linha, sem ícones grandes
+ *   altura <= 300px  só a barra de xp, o relógio e o botão
+ *   altura <= 190px  só o relógio e o botão
+ */
+@media (max-width: 1000px), (max-height: 700px) {
     html{
         font-size: 93.75%;
     }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (max-height: 560px) {
     html{
         font-size: 87.5%;
     }
