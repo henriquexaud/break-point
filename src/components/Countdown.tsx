@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import Head from 'next/head';
-import { CountdownContext, CYCLES_BEFORE_LONG_BREAK } from '../contexts/CountdownContext';
+import { CountdownContext } from '../contexts/CountdownContext';
+import { formatTime, getModeLabel } from '../utils/countdown';
 
 import styles from '../styles/components/Countdown.module.css';
 
@@ -16,19 +17,11 @@ export function Countdown() {
         resetCountdown
     } = useContext(CountdownContext)
 
-    const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
-    const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
-    const time = `${minuteLeft}${minuteRight}:${secondLeft}${secondRight}`;
+    const time = formatTime(minutes * 60 + seconds);
+    const [minuteLeft, minuteRight, , secondLeft, secondRight] = time.split('');
 
     const isBreak = mode !== 'focus';
-
-    let label = `Foco · ciclo ${(focusCycles % CYCLES_BEFORE_LONG_BREAK) + 1} de ${CYCLES_BEFORE_LONG_BREAK}`;
-
-    if (mode === 'shortBreak') {
-        label = 'Pausa curta';
-    } else if (mode === 'longBreak') {
-        label = 'Pausa longa';
-    }
+    const label = getModeLabel(mode, focusCycles);
 
     let title = 'BreakPoint';
 

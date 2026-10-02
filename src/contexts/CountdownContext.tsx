@@ -9,8 +9,9 @@ import {
 
 import { ChallengeContext } from './ChallengeContext';
 import { notify } from '../utils/notify';
+import { CountdownMode, DURATIONS, getBreakMode } from '../utils/countdown';
 
-export type CountdownMode = 'focus' | 'shortBreak' | 'longBreak';
+export type { CountdownMode };
 
 interface CountdownContextData {
     minutes: number;
@@ -28,16 +29,6 @@ interface CountdownProviderProps {
 
 export const CountdownContext = createContext({} as CountdownContextData)
 
-export const CYCLES_BEFORE_LONG_BREAK = 4;
-
-const DURATIONS: Record<CountdownMode, number> = {
-    focus: 25 * 60,
-    shortBreak: 5 * 60,
-    longBreak: 15 * 60
-};
-
-let countdownTimeout: NodeJS.Timeout;
-
 export function CountdownProvider({ children }: CountdownProviderProps) {
     const { startNewChallenge } = useContext(ChallengeContext);
 
@@ -46,6 +37,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
     const [isActive, setIsActive] = useState(false);
     const [focusCycles, setFocusCycles] = useState(0);
     const endTime = useRef(0);
+    const countdownTimeout = useRef<NodeJS.Timeout>();
 
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -66,14 +58,14 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
 
     function resetCountdown() {
         setIsActive(false);
-        clearTimeout(countdownTimeout);
+        clearTimeout(countdownTimeout.current);
         setMode('focus');
         setTime(DURATIONS.focus);
     }
 
     function finishFocus() {
         const cycles = focusCycles + 1;
-        const nextMode = cycles % CYCLES_BEFORE_LONG_BREAK === 0 ? 'longBreak' : 'shortBreak';
+        const nextMode = getBreakMode(cycles);
 
         setFocusCycles(cycles);
         setMode(nextMode);
@@ -89,7 +81,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
     useEffect(() => {
         if (isActive && time > 0) {
             // Recalcula pelo relógio: abas em segundo plano atrasam o setTimeout
-            countdownTimeout = setTimeout(() => {
+            countdownTimeout.current = setTimeout(() => {
                 setTime(Math.max(0, Math.ceil((endTime.current - Date.now()) / 1000)));
             }, 1000);
         } else if (isActive && time === 0) {

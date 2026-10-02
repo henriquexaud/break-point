@@ -11,6 +11,8 @@ import Cookies from 'js-cookie';
 
 import { LevelUpModal } from "../components/levelUpModal";
 import { notify } from "../utils/notify";
+import { applyExperience, getExperienceToNextLevel } from "../utils/experience";
+import { getDateKey, getNextStreak, getStreakBonus, isStreakBroken } from "../utils/streak";
 
 interface Challenge {
     img: string;
@@ -43,38 +45,6 @@ interface ChallengesProviderProps {
     lastActiveDate: string | null;
 }
 
-const BASE_EXPERIENCE = 100;
-const EXPERIENCE_INCREMENT = 50;
-
-// 100 xp no nível 1, e cada nível seguinte pede 50 xp a mais
-function getExperienceToNextLevel(level: number) {
-    return BASE_EXPERIENCE + EXPERIENCE_INCREMENT * (level - 1);
-}
-
-// Converte o xp acumulado em níveis (também ajusta progresso salvo com a curva antiga)
-function applyExperience(level: number, experience: number) {
-    while (experience >= getExperienceToNextLevel(level)) {
-        experience -= getExperienceToNextLevel(level);
-        level++;
-    }
-
-    return { level, experience };
-}
-
-const STREAK_BONUS_MIN_DAYS = 3;
-const STREAK_BONUS_RATE = 0.1;
-
-// Data no fuso local no formato YYYY-MM-DD
-function getDateKey(daysAgo = 0) {
-    const date = new Date();
-    date.setDate(date.getDate() - daysAgo);
-
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${date.getFullYear()}-${month}-${day}`;
-}
-
 export const ChallengeContext = createContext({} as ChallengesContextData);
 
 export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps) {
@@ -95,9 +65,7 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
 
     const experienceToNextLevel = getExperienceToNextLevel(level);
 
-    const streakBonus = activeChallenge && streak >= STREAK_BONUS_MIN_DAYS
-        ? Math.round(activeChallenge.xp * STREAK_BONUS_RATE)
-        : 0;
+    const streakBonus = activeChallenge ? getStreakBonus(activeChallenge.xp, streak) : 0;
 
     useEffect(() => {
         // Offline a página vem do cache do service worker, com o progresso de quando foi salva.
@@ -106,15 +74,10 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
         const progress = applyExperience(Number(saved.level) || 1, Number(saved.currentExperience) || 0);
         const savedLastActiveDate = saved.lastActiveDate || null;
 
-        // A sequência é quebrada se o último ciclo foi antes de ontem
-        const isStreakBroken = savedLastActiveDate
-            && savedLastActiveDate !== getDateKey()
-            && savedLastActiveDate !== getDateKey(1);
-
         setLevel(progress.level);
         setCurrentExperience(progress.experience);
         setChallengeCompleted(Number(saved.challengeCompleted) || 0);
-        setStreak(isStreakBroken ? 0 : Number(saved.streak) || 0);
+        setStreak(isStreakBroken(savedLastActiveDate) ? 0 : Number(saved.streak) || 0);
         setLastActiveDate(savedLastActiveDate);
         setIsProgressLoaded(true);
     }, []);
@@ -147,7 +110,7 @@ export function ChallengeProvider({ children, ...rest }: ChallengesProviderProps
             return;
         }
 
-        setStreak(lastActiveDate === getDateKey(1) ? streak + 1 : 1);
+        setStreak(getNextStreak(streak, lastActiveDate));
         setLastActiveDate(today);
     }
 

@@ -1,21 +1,14 @@
 import { useContext } from 'react';
 import { ChallengeContext } from '../contexts/ChallengeContext';
 
-import styles from '../styles/components/Profile.module.css';
+import { CHARACTERS, getCharacter } from '../utils/characters';
 
-// Do nível mais alto para o mais baixo
-const CHARACTERS = [
-    { minLevel: 20, name: 'Rick Supremo', img: 'icons/rick-supreme.png' },
-    { minLevel: 15, name: 'Rick Transcendental', img: 'icons/rick-transcendent.png' },
-    { minLevel: 10, name: 'Rick Cósmico', img: 'icons/rick-cosmic.png' },
-    { minLevel: 5, name: 'Rick Sanchez', img: 'icons/rick-colors.png' },
-    { minLevel: 1, name: 'Morty Smith', img: 'icons/morty.png' }
-];
+import styles from '../styles/components/Profile.module.css';
 
 export function Profile() {
     const { level, streak } = useContext(ChallengeContext);
 
-    const character = CHARACTERS.find(({ minLevel }) => level >= minLevel) ?? CHARACTERS[CHARACTERS.length - 1];
+    const character = getCharacter(level);
     const hasMedal = character !== CHARACTERS[CHARACTERS.length - 1];
 
     return (
